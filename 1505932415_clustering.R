@@ -102,8 +102,44 @@ randIndex(ct.km)
 # * Would you consider this a good clustering?
 install.packages("cluster")
 library(cluster)
-#clusplot( ... ) # Need assistance here. I am not sure what this is asking me to do. This is
-# ...problematic that this file is asking for information to be completed in the assignment
-# ...that was not covered in the training. 
-# This link does not provide clear guidance: 
-# https://www.rdocumentation.org/packages/cluster/versions/2.0.7-1/topics/clusplot
+
+# Using 3 clusters
+pam_clusters <- pam(wine, 3)
+clusplot(pam_clusters)
+
+clara_clusters <- clara(wine, 3)
+clusplot(clara_clusters)
+
+fanny_clusters <- fanny(wine, 3)
+clusplot(fanny_clusters) # explains 57.38% of variability
+
+# Using 2 clusters; could also use 2 clusters based on information from the 
+# ...wssplot
+pam_clusters <- pam(wine, 2)
+clusplot(pam_clusters)
+
+clara_clusters <- clara(wine, 2)
+clusplot(clara_clusters)
+
+fanny_clusters <- fanny(wine, 2)
+clusplot(fanny_clusters) # explains 57.38% of variability
+
+# Because data may be multivariate it may be tedious to inspect all the many 
+# ...bivariate scatterplots. Instead, a single "summarising" scatterplot is 
+# ...more convenient, the scatterplot of the first two (or possibly the first 
+# ...three) principal components which were derived from the data. 
+
+# 57.38% of variability says that, with my data, almost 60% of the information 
+# about the multivariate data is captured by this plot of components 1 and 2.
+
+# This is good clustering however it can be improved. If we add a 3rd component 
+# ...by adding the 3rd axis or by means of a bubble scatterplot - the percent of 
+# ...explained variability will be higher, and you might find, perhaps, that the 
+# ...two clusters on the right do not mix and are more nearly separate in the 
+# ...space.
+
+# In short, the higher the percentage of the point variability, the less 
+# ...information is hidden so the better the scatterplot respresents the
+# ...actual situation.
+
+While typically you can expect that a 1-2 or 1-2-3 component scatterplot will demonstrate clusters as separate (if there are any), there is no rule or guarantee that this will happen. Sometimes clusters appear distinct only in high dimensions capturing a small portion of variability, that is, in "weak" components. 
